@@ -855,7 +855,7 @@ nav[aria-label="Mobile"]{max-height:calc(100dvh - 68px)!important;overscroll-beh
         </div>
       </div>
       <div style="display:flex;flex-direction:column;gap:12px">
-        <span role="button" tabindex="0" onClick="{{ nav.contact }}" style="display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:600;padding:18px 24px;background:#1A2A1A;color:#fff;cursor:pointer" style-hover="background:#4A6741">Request Investor Pack</span>
+        <span role="button" tabindex="0" onClick="{{ nav.investorpack }}" style="display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:600;padding:18px 24px;background:#1A2A1A;color:#fff;cursor:pointer" style-hover="background:#4A6741">Request Investor Pack</span>
         <span role="button" tabindex="0" onClick="{{ nav.bookcall }}" style="display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:600;padding:18px 24px;border:1px solid #E2DED6;color:#1A2A1A;cursor:pointer" style-hover="border-color:#4A6741;color:#4A6741">Book a Call</span>
       </div>
     </div>
@@ -901,7 +901,7 @@ nav[aria-label="Mobile"]{max-height:calc(100dvh - 68px)!important;overscroll-beh
       <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(28px,4vw,44px);font-weight:400">Site <em style="color:#A0884D">Submission</em></h2>
       <p style="font-size:15px;color:#5A6050;line-height:1.8;margin-top:16px">Complete the form below and we will assess your site within 48 hours. Confidential. No obligation.</p>
     </div>
-    <form onSubmit="{{ submitLand }}">
+    <form onSubmit="{{ submitLand }}"><input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px">
         <div><label style="display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6A7060;margin-bottom:6px">Name</label><input type="text" required placeholder="Your full name" style="width:100%;font-size:14px;padding:12px 16px;border:1px solid #E2DED6;background:#FAFAF8;outline:none"></div>
         <div><label style="display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6A7060;margin-bottom:6px">Email</label><input type="email" required placeholder="your@email.com" style="width:100%;font-size:14px;padding:12px 16px;border:1px solid #E2DED6;background:#FAFAF8;outline:none"></div>
@@ -1056,7 +1056,7 @@ nav[aria-label="Mobile"]{max-height:calc(100dvh - 68px)!important;overscroll-beh
         <h2 style="font-family:'DM Serif Display',serif;font-size:32px;font-weight:400;margin-bottom:28px;line-height:1.2">Let us discuss<br><em style="color:#A0884D">your project</em></h2>
         <p style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;color:#A0884D;margin:-18px 0 28px">(soon to be our project…)</p>
         <div style="display:flex;flex-direction:column;gap:22px;border-top:1px solid #E2DED6;padding-top:24px">
-          <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#4A6741;margin-bottom:6px">Email</div><p style="font-size:15px;color:#5A6050">info@ecohome.co.uk</p></div>
+          <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#4A6741;margin-bottom:6px">Email</div><p style="font-size:15px;color:#5A6050">info@ecohomegb.com</p></div>
           <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#4A6741;margin-bottom:6px">Office</div><p style="font-size:15px;color:#5A6050">London, United Kingdom</p></div>
           <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#4A6741;margin-bottom:6px">Response Time</div><p style="font-size:15px;color:#5A6050">One business day for all enquiries. Site submissions assessed within 48 hours.</p></div>
           <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#4A6741;margin-bottom:6px">Confidentiality</div><p style="font-size:15px;color:#5A6050">All enquiries treated in confidence. NDA available on request.</p></div>
@@ -1068,7 +1068,10 @@ nav[aria-label="Mobile"]{max-height:calc(100dvh - 68px)!important;overscroll-beh
       </div>
       <div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#4A6741;margin-bottom:22px">Send a Message</div>
-        <form onSubmit="{{ submitContact }}">
+        <form onSubmit="{{ submitContact }}"><input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+          <sc-if value="{{ packRequest }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-bottom:18px;padding:14px 18px;background:#F2F5F0;border-left:2px solid #4A6741;font-size:13px;color:#3E5636;line-height:1.6">You are requesting the <strong>Investor Pack</strong>. Leave your details and we will be in touch to confirm your investor status and NDA before sending it.</div>
+          </sc-if>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px">
             <div><label style="display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6A7060;margin-bottom:6px">Name</label><input type="text" required placeholder="Your full name" style="width:100%;font-size:14px;padding:12px 16px;border:1px solid #E2DED6;background:#FAFAF8;outline:none"></div>
             <div><label style="display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6A7060;margin-bottom:6px">Email</label><input type="email" required placeholder="your@email.com" style="width:100%;font-size:14px;padding:12px 16px;border:1px solid #E2DED6;background:#FAFAF8;outline:none"></div>
@@ -1152,19 +1155,17 @@ nav[aria-label="Mobile"]{max-height:calc(100dvh - 68px)!important;overscroll-beh
       <div>
         <h2 style="font-family:'DM Serif Display',serif;font-size:26px;margin-bottom:20px">Pick a slot</h2>
         <p style="font-size:13.5px;color:#5A6050;line-height:1.8;margin-bottom:24px">All times UK. Choose a slot and we will confirm by email with a calendar invitation and a dial-in link.</p>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px">
-          <span style="padding:14px 10px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;border:1px solid #E2DED6;background:#fff;color:#1A2A1A;cursor:pointer" style-hover="border-color:#4A6741;color:#4A6741">Tue 09:00</span>
-          <span style="padding:14px 10px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;border:1px solid #E2DED6;background:#fff;color:#1A2A1A;cursor:pointer" style-hover="border-color:#4A6741;color:#4A6741">Tue 11:30</span>
-          <span style="padding:14px 10px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;border:1px solid #E2DED6;background:#fff;color:#1A2A1A;cursor:pointer" style-hover="border-color:#4A6741;color:#4A6741">Wed 10:00</span>
-          <span style="padding:14px 10px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;border:1px solid #E2DED6;background:#fff;color:#1A2A1A;cursor:pointer" style-hover="border-color:#4A6741;color:#4A6741">Wed 15:00</span>
-          <span style="padding:14px 10px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;border:1px solid #E2DED6;background:#fff;color:#1A2A1A;cursor:pointer" style-hover="border-color:#4A6741;color:#4A6741">Thu 09:30</span>
-          <span style="padding:14px 10px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;border:1px solid #E2DED6;background:#fff;color:#1A2A1A;cursor:pointer" style-hover="border-color:#4A6741;color:#4A6741">Thu 14:00</span>
+        <div role="radiogroup" aria-label="Preferred call slot" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px">
+          <sc-for list="{{ slotList }}" as="sl" hint-placeholder-count="6">
+            <sc-if value="{{ sl.on }}" hint-placeholder-val="{{ false }}"><span role="radio" aria-checked="true" tabindex="0" onClick="{{ sl.pick }}" style="padding:14px 10px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;border:1px solid #4A6741;background:#4A6741;color:#fff;cursor:pointer">{{ sl.t }}</span></sc-if>
+            <sc-if value="{{ sl.off }}" hint-placeholder-val="{{ true }}"><span role="radio" aria-checked="false" tabindex="0" onClick="{{ sl.pick }}" style="padding:14px 10px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;border:1px solid #E2DED6;background:#fff;color:#1A2A1A;cursor:pointer" style-hover="border-color:#4A6741;color:#4A6741">{{ sl.t }}</span></sc-if>
+          </sc-for>
         </div>
         <div style="margin-top:28px;padding:14px 18px;background:#F5F3EF;border-left:2px solid #A0884D;font-size:12px;color:#6A7060;line-height:1.7">Slots shown are our standard availability. We confirm the exact time by email.</div>
       </div>
       <div>
         <h2 style="font-family:'DM Serif Display',serif;font-size:26px;margin-bottom:20px">Your details</h2>
-        <form onSubmit="{{ submitContact }}" style="display:flex;flex-direction:column;gap:16px">
+        <form onSubmit="{{ submitContact }}" style="display:flex;flex-direction:column;gap:16px"><input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
         <label style="display:flex;flex-direction:column;gap:7px">
           <span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#6A7060">Name</span>
           <input type="text" placeholder="Full name" style="padding:12px 14px;font-size:13.5px;border:1px solid #E2DED6;background:#fff;color:#1A2A1A;outline:none;font-family:'Outfit',sans-serif">
@@ -1210,7 +1211,7 @@ nav[aria-label="Mobile"]{max-height:calc(100dvh - 68px)!important;overscroll-beh
   </div>
 
   <section style="padding:72px 0 96px;background:#FAFAF8"><div style="max-width:900px;margin:0 auto;padding:0 28px">
-    <form onSubmit="{{ submitLand }}" style="background:#fff;border:1px solid #E9E6DF;padding:40px">
+    <form onSubmit="{{ submitLand }}" style="background:#fff;border:1px solid #E9E6DF;padding:40px"><input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <h2 style="font-family:'DM Serif Display',serif;font-size:24px;margin-bottom:8px">Site submission</h2>
       <p style="font-size:13px;color:#6A7060;line-height:1.75;margin-bottom:32px">Everything you send is treated in confidence and is not shared outside EcoHome and our professional advisers.</p>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:18px">
@@ -1317,7 +1318,7 @@ nav[aria-label="Mobile"]{max-height:calc(100dvh - 68px)!important;overscroll-beh
     <p style="font-size:14px;color:#4A5245;line-height:1.85;margin-bottom:14px">We only send updates if you tick the optional box on a form. Every email includes a one-click unsubscribe link, and you can also opt out by emailing us.</p>
     <h2 style="font-family:'DM Serif Display',serif;font-size:22px;margin:38px 0 14px;color:#1A2A1A">Make a data request</h2>
     <p style="font-size:14px;color:#4A5245;line-height:1.85;margin-bottom:14px">Ask for a copy of your data, a correction, or deletion. We will confirm your identity and respond within one month.</p>
-    <form onSubmit="{{ submitData }}" style="background:#fff;border:1px solid #E9E6DF;padding:30px;display:grid;gap:14px;margin-top:8px">
+    <form onSubmit="{{ submitData }}" style="background:#fff;border:1px solid #E9E6DF;padding:30px;display:grid;gap:14px;margin-top:8px"><input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <label style="display:flex;flex-direction:column;gap:7px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#6A7060">Name</span><input required type="text" autocomplete="name" style="padding:12px 14px;font-size:14px;border:1px solid #E2DED6;background:#fff;color:#1A2A1A"></label>
       <label style="display:flex;flex-direction:column;gap:7px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#6A7060">Email used with us</span><input required type="email" autocomplete="email" style="padding:12px 14px;font-size:14px;border:1px solid #E2DED6;background:#fff;color:#1A2A1A"></label>
       <label style="display:flex;flex-direction:column;gap:7px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#6A7060">Request</span><select style="padding:12px 14px;font-size:14px;border:1px solid #E2DED6;background:#fff;color:#1A2A1A"><option>Delete my data</option><option>Send me a copy of my data</option><option>Correct my data</option><option>Stop marketing emails</option><option>Object to or restrict processing</option></select></label>
@@ -1468,9 +1469,7 @@ nav[aria-label="Mobile"]{max-height:calc(100dvh - 68px)!important;overscroll-beh
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900}}">
-// Paste your Formspree form ID here (e.g. 'xyzabcd') so website forms are emailed to you.
-// Leave empty and the forms only show the thank-you message without sending anything.
-const FORMSPREE_ID = '';
+const CALL_SLOTS = ['Tue 09:00','Tue 11:30','Wed 10:00','Wed 15:00','Thu 09:30','Thu 14:00'];
 
 const JOURNEY = [
         { n:'01', t:'Brief', sub:'Site appraisal and feasibility study' },
@@ -1741,7 +1740,7 @@ class Component extends DCLogic {
   }
 
   go(page) {
-    this.setState({ page, menu: null, menuOpen: false });
+    this.setState({ page, menu: null, menuOpen: false, packRequest: false, contactSent: false, landSent: false });
     if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -1759,42 +1758,39 @@ class Component extends DCLogic {
     return this._stages;
   }
 
-  sendForm(e, subject, done) {
+  sendForm(e, subject, done, extra) {
     e.preventDefault();
     const form = e.currentTarget || e.target;
-    if (!FORMSPREE_ID) {
-      console.warn('EcoHome: FORMSPREE_ID is empty, so this enquiry was not sent anywhere.');
-      done();
-      return;
-    }
-    const data = { _subject: subject, page: location.href };
+    if (form.dataset.sending) return;
+    const fields = Object.assign({}, extra || {});
+    let replyTo = '';
     for (const el of Array.from(form.elements)) {
-      if (!el.tagName || el.type === 'submit' || el.type === 'button') continue;
+      if (!el.tagName || el.type === 'submit' || el.type === 'button' || el.name === 'website') continue;
+      const wrap = el.closest('label');
       let key = el.getAttribute('name');
-      if (!key && el.type === 'checkbox') {
-        const lab = el.closest('label');
-        key = lab ? lab.textContent.trim().slice(0, 60) : 'Checkbox';
-      }
-      if (!key) {
-        const lab = el.parentElement && el.parentElement.querySelector('label');
-        key = (lab && lab.textContent.trim()) || el.getAttribute('placeholder') || el.getAttribute('autocomplete') || el.type;
-      }
+      if (!key && el.type === 'checkbox') key = wrap ? wrap.textContent.trim().slice(0, 60) : 'Checkbox';
+      if (!key && wrap) { const t = wrap.querySelector('span'); key = t && t.textContent.trim(); }
+      if (!key) { const lab = el.parentElement && el.parentElement.querySelector('label'); key = lab && lab.textContent.trim(); }
+      if (!key) key = el.getAttribute('placeholder') || el.getAttribute('autocomplete') || el.type;
       let val = el.type === 'checkbox' ? (el.checked ? 'Yes' : 'No') : el.value;
-      if (key in data) key = key + ' (2)';
-      data[key] = val;
-      if (el.type === 'email' && el.value) data._replyto = el.value;
+      if (el.tagName === 'SELECT' && el.selectedIndex === 0 && /select/i.test(val)) val = '';
+      while (key in fields) key += ' ';
+      fields[key] = val;
+      if (el.type === 'email' && el.value && !replyTo) replyTo = el.value;
     }
-    fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+    const hp = form.querySelector('input[name="website"]');
+    form.dataset.sending = '1';
+    fetch('/api/enquiry', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify(data)
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ subject, fields, replyTo, page: location.href, website: hp ? hp.value : '' })
     }).then(r => {
       if (!r.ok) throw new Error('HTTP ' + r.status);
       form.reset();
       done();
     }).catch(() => {
-      alert('Sorry, your message could not be sent. Please email us at info@ecohome.co.uk.');
-    });
+      alert('Sorry, your message could not be sent. Please email us at info@ecohomegb.com.');
+    }).finally(() => { delete form.dataset.sending; });
   }
 
   snakeRows(list) {
@@ -1945,6 +1941,7 @@ class Component extends DCLogic {
         about: () => this.go('about'), contact: () => this.go('contact'),
         work: () => this.go('work'), bookcall: () => this.go('bookcall'),
         submitsite: () => this.go('submitsite'), privacy: () => this.go('privacy'),
+        investorpack: () => { this.go('contact'); this.setState({ packRequest: true }); },
         terms: () => this.go('terms'), cookies: () => this.go('cookies')
       },
       hover: {
@@ -2043,13 +2040,25 @@ class Component extends DCLogic {
       menuLabel: this.state.menuOpen ? 'Close' : 'Menu',
       toggleMenu: () => this.setState(st => ({ menuOpen: !st.menuOpen })),
       dataSent: !!this.state.dataSent,
-      submitData: (e) => this.sendForm(e, 'Website: data request', () => this.setState({ dataSent: true })),
+      submitData: (e) => this.sendForm(e, 'Website: data protection request', () => this.setState({ dataSent: true })),
       cookieAccept: () => this.setCookieChoice('analytics'),
       cookieReject: () => this.setCookieChoice('essential'),
       landSent: this.state.landSent,
       contactSent: this.state.contactSent,
-      submitLand: (e) => this.sendForm(e, 'Website: site submission', () => this.setState({ landSent: true })),
-      submitContact: (e) => this.sendForm(e, 'Website: enquiry', () => this.setState({ contactSent: true }))
+      submitLand: (e) => this.sendForm(e, 'Website: land / site submission', () => this.setState({ landSent: true })),
+      submitContact: (e) => {
+        const p = this.state.page;
+        if (p === 'bookcall') {
+          const slot = this.state.slot || 'No slot chosen';
+          return this.sendForm(e, 'Website: call booking request (' + slot + ')', () => this.setState({ contactSent: true }), { 'Preferred slot': slot });
+        }
+        const pack = !!this.state.packRequest;
+        return this.sendForm(e, pack ? 'Website: Investor Pack request' : 'Website: enquiry', () => this.setState({ contactSent: true }), pack ? { 'Request': 'Investor Pack' } : null);
+      },
+      packRequest: !!this.state.packRequest,
+      slotList: CALL_SLOTS.map(t => ({ t, on: this.state.slot === t, off: this.state.slot !== t, pick: () => this.setState({ slot: t }) })),
+      noSlot: !this.state.slot,
+      slotLabel: this.state.slot || ''
     };
   }
 }

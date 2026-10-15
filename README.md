@@ -41,7 +41,7 @@ vercel --prod   # publish to production
 ```
 
 ## Connect your domain
-1. In Vercel open the project → **Settings → Domains** → type your domain (e.g. `ecohome.co.uk`) → **Add**.
+1. In Vercel open the project → **Settings → Domains** → type your domain (`ecohomegb.com`) → **Add**.
 2. Vercel shows the DNS records to set. At your domain registrar (Namecheap, GoDaddy, 123-reg, Cloudflare…) add:
    - **A record** — host `@` — value `76.76.21.21`
    - **CNAME record** — host `www` — value `cname.vercel-dns.com`
@@ -50,11 +50,12 @@ vercel --prod   # publish to production
 4. In Domains, set `www` to redirect to the root domain (or the other way round) so there's one address.
 
 ## Before you announce it
-- [ ] **Turn on form emails.** The forms are wired to Formspree but need your form ID:
-  1. Sign up free at formspree.io with the inbox that should receive enquiries, and confirm the email.
-  2. Click **+ New Form**, name it "EcoHome website", and copy the ID from the endpoint (`https://formspree.io/f/THIS_PART`).
-  3. In `index.html`, search for `const FORMSPREE_ID = '';` and paste the ID between the quotes. Commit, and Vercel redeploys.
-  4. Send yourself a test from the Contact page; the first submission asks you to confirm in Formspree.
+- [ ] **Turn on form emails.** Every form (Contact, Book a Call with the chosen slot, Investor Pack request, Submit a Site, data requests) is sent by `api/enquiry.js` to **info@ecohomegb.com** and **walid@ecohomegb.com**. Replying to the email replies to the visitor. To switch it on:
+  1. Sign up free at resend.com.
+  2. **Domains → Add Domain** → `ecohomegb.com`. Add the DNS records it shows at your domain provider and wait for "Verified".
+  3. **API Keys → Create API Key** (sending access) and copy it.
+  4. In Vercel: project → **Settings → Environment Variables** → add `RESEND_API_KEY` with that key (all environments) → then **Deployments → Redeploy**.
+  5. Send a test from the Contact page. To change who receives emails, add an `ENQUIRY_TO` variable, e.g. `info@ecohomegb.com,walid@ecohomegb.com`.
 - [ ] Written permission from Steel Homes and Ozok Steel for their photos.
 - [ ] Solicitor review of the investor page and legal pages.
 - [ ] Add your ICO registration number to the Privacy page.
