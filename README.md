@@ -50,7 +50,11 @@ vercel --prod   # publish to production
 4. In Domains, set `www` to redirect to the root domain (or the other way round) so there's one address.
 
 ## Before you announce it
-- [ ] **Forms send nothing yet.** Ask Claude to connect them to Formspree (free, works on Vercel) so enquiries reach your inbox.
+- [ ] **Turn on form emails.** The forms are wired to Formspree but need your form ID:
+  1. Sign up free at formspree.io with the inbox that should receive enquiries, and confirm the email.
+  2. Click **+ New Form**, name it "EcoHome website", and copy the ID from the endpoint (`https://formspree.io/f/THIS_PART`).
+  3. In `index.html`, search for `const FORMSPREE_ID = '';` and paste the ID between the quotes. Commit, and Vercel redeploys.
+  4. Send yourself a test from the Contact page; the first submission asks you to confirm in Formspree.
 - [ ] Written permission from Steel Homes and Ozok Steel for their photos.
 - [ ] Solicitor review of the investor page and legal pages.
 - [ ] Add your ICO registration number to the Privacy page.
