@@ -17,7 +17,7 @@
 // Load the 3D viewer only when a 3D section is about to scroll into view.
 (function(){
   var loaded=false;
-  function load(){ if(loaded) return; loaded=true; var sc=document.createElement('script'); sc.type='module'; sc.src='./vendor/model-viewer.min.js'; document.head.appendChild(sc); }
+  function load(){ if(loaded) return; loaded=true; ['./vendor/model-viewer.min.js','./vendor/ecohome-frame.js'].forEach(function(src){ var sc=document.createElement('script'); sc.type='module'; sc.src=src; document.head.appendChild(sc); }); }
   function arm(){
     var els=document.querySelectorAll('[data-eh-3d]'); if(!els.length) return false;
     if(!('IntersectionObserver' in window)){ load(); return true; }
@@ -199,9 +199,26 @@ nav[aria-label="Mobile"]{max-height:calc(100dvh - 68px)!important;overscroll-beh
         <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,215,195,.7)">Drag to rotate</div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:28px;align-items:stretch">
+        <div style="display:flex;flex-direction:column;gap:12px">
+        <div role="tablist" style="display:flex;gap:8px">
+          <sc-if value="{{ viewFinished }}" hint-placeholder-val="{{ true }}"><span role="tab" aria-selected="true" tabindex="0" onClick="{{ showFinished }}" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:10px 16px;background:#4A6741;color:#fff;border:1px solid #4A6741;cursor:pointer">Finished home</span></sc-if>
+          <sc-if value="{{ viewFrame }}" hint-placeholder-val="{{ false }}"><span role="tab" aria-selected="false" tabindex="0" onClick="{{ showFinished }}" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:10px 16px;background:transparent;color:#C9D7C3;border:1px solid rgba(201,215,195,.35);cursor:pointer" style-hover="border-color:#A9C09E">Finished home</span></sc-if>
+          <sc-if value="{{ viewFrame }}" hint-placeholder-val="{{ false }}"><span role="tab" aria-selected="true" tabindex="0" onClick="{{ showFrame }}" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:10px 16px;background:#4A6741;color:#fff;border:1px solid #4A6741;cursor:pointer">Steel frame cutaway</span></sc-if>
+          <sc-if value="{{ viewFinished }}" hint-placeholder-val="{{ true }}"><span role="tab" aria-selected="false" tabindex="0" onClick="{{ showFrame }}" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:10px 16px;background:transparent;color:#C9D7C3;border:1px solid rgba(201,215,195,.35);cursor:pointer" style-hover="border-color:#A9C09E">Steel frame cutaway</span></sc-if>
+        </div>
+        <sc-if value="{{ viewFrame }}" hint-placeholder-val="{{ false }}">
+        <div style="position:relative;background:radial-gradient(ellipse at 50% 70%,#2C3F2A 0%,#1F2F1E 55%,#1A2A1A 100%);border:1px solid rgba(201,215,195,.14);min-height:420px;aspect-ratio:1/1;max-height:560px;overflow:hidden">
+          <div data-eh-frame="1" style="position:absolute;inset:0"></div>
+          <div style="position:absolute;left:18px;top:16px;display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,215,195,.75);pointer-events:none"><span style="width:7px;height:7px;border-radius:50%;background:#A9C09E;box-shadow:0 0 10px rgba(169,192,158,.7)"></span>Light gauge steel frame, live cutaway</div>
+        </div>
+        <p style="font-size:12.5px;color:rgba(250,250,248,.55);line-height:1.6;margin:0">Drag the slider to slice the finished house away and see the cold-formed steel studs, floor joists and roof trusses beneath. Choose Side, Front or Top to change the cut. Drag the model to turn it.</p>
+        </sc-if>
+        <sc-if value="{{ viewFinished }}" hint-placeholder-val="{{ true }}">
         <div style="position:relative;background:radial-gradient(ellipse at 50% 70%,#2C3F2A 0%,#1F2F1E 55%,#1A2A1A 100%);border:1px solid rgba(201,215,195,.14);min-height:420px;aspect-ratio:1/1;max-height:560px;display:flex;align-items:center;justify-content:center">
           <model-viewer src="{{ home3d.src }}" poster="{{ home3d.poster }}" alt="{{ home3d.alt }}" camera-controls auto-rotate auto-rotate-delay="1200" rotation-per-second="18deg" shadow-intensity="1.1" shadow-softness="0.9" exposure="1.05" environment-image="neutral" camera-orbit="35deg 72deg 105%" min-camera-orbit="auto 55deg auto" max-camera-orbit="auto 95deg auto" interaction-prompt="none" loading="lazy" reveal="auto" style="width:100%;height:100%;min-height:420px;background:transparent;--poster-color:transparent"></model-viewer>
           <div style="position:absolute;left:18px;bottom:16px;display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,215,195,.75);pointer-events:none"><span style="width:7px;height:7px;border-radius:50%;background:#A9C09E;box-shadow:0 0 10px rgba(169,192,158,.7)"></span>{{ home3d.label }}</div>
+        </div>
+        </sc-if>
         </div>
         <div style="display:flex;flex-direction:column;gap:12px;justify-content:center">
           <sc-for list="{{ homes3d }}" as="h" hint-placeholder-count="3">
@@ -2123,6 +2140,8 @@ class Component extends DCLogic {
         const pack = !!this.state.packRequest;
         return this.sendForm(e, pack ? 'Website: Investor Pack request' : 'Website: enquiry', () => this.setState({ contactSent: true }), pack ? { 'Request': 'Investor Pack' } : null);
       },
+      viewFrame: !!this.state.frameView, viewFinished: !this.state.frameView,
+      showFrame: () => this.setState({ frameView: true }), showFinished: () => this.setState({ frameView: false }),
       home3d: HOMES3D[this.state.home3d || 0],
       homes3d: HOMES3D.map((h, i) => Object.assign({}, h, { on: (this.state.home3d || 0) === i, off: (this.state.home3d || 0) !== i, pick: () => this.setState({ home3d: i }) })),
       packRequest: !!this.state.packRequest,
