@@ -14,7 +14,8 @@ python3 -m http.server 8000   # then open http://localhost:8000
 - `index.html` — the website (every page lives in this one file)
 - `EcoHomeLogoAnim.dc.html` — the animated logo
 - `support.js` — the runtime that renders the pages
-- `vendor/` — React, bundled locally so the site doesn't depend on a third-party CDN to load
+- `vendor/` — React and the `<model-viewer>` 3D viewer, bundled locally
+- The hero photo, the three house renders and the 3D house models were generated with Higgsfield and are served from its CDN (`d8j0ntlcm91z4.cloudfront.net`). To make the site fully self-contained, download them into `assets/` and update the URLs in `index.html`.
 - `assets/` — logo, logo animation frames and your photos
 - `vercel.json` — security headers and caching
 - `robots.txt` — lets search engines index the site

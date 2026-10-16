@@ -13,6 +13,21 @@
 <script src="./vendor/react.production.min.js"></script>
 <script src="./vendor/react-dom.production.min.js"></script>
 <script src="./support.js"></script>
+<script>
+// Load the 3D viewer only when a 3D section is about to scroll into view.
+(function(){
+  var loaded=false;
+  function load(){ if(loaded) return; loaded=true; var sc=document.createElement('script'); sc.type='module'; sc.src='./vendor/model-viewer.min.js'; document.head.appendChild(sc); }
+  function arm(){
+    var els=document.querySelectorAll('[data-eh-3d]'); if(!els.length) return false;
+    if(!('IntersectionObserver' in window)){ load(); return true; }
+    var io=new IntersectionObserver(function(en){ en.forEach(function(e){ if(e.isIntersecting){ load(); io.disconnect(); } }); },{rootMargin:'600px 0px'});
+    els.forEach(function(el){ io.observe(el); }); return true;
+  }
+  var mo=new MutationObserver(function(){ if(loaded){ mo.disconnect(); return; } arm(); });
+  document.addEventListener('DOMContentLoaded',function(){ arm(); mo.observe(document.body,{childList:true,subtree:true}); });
+})();
+</script>
 </head>
 <body>
 <x-dc>
@@ -136,7 +151,7 @@ nav[aria-label="Mobile"]{max-height:calc(100dvh - 68px)!important;overscroll-beh
 <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
 <div style="animation:ehpage .5s cubic-bezier(.22,.68,.3,1) both">
   <div style="position:relative;height:clamp(520px,70vh,700px);overflow:hidden;display:flex;align-items:center">
-    <div style="position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1600&q=80&fit=crop');background-size:cover;background-position:center 40%"></div>
+    <div style="position:absolute;inset:0;background-image:url('https://d8j0ntlcm91z4.cloudfront.net/user_3Kjhru6zDTsgYrbghNi9q7md3ym/hf_20261016_085554_b04d15ae-b2ce-483c-87ca-76cfd82beea8.png');background-size:cover;background-position:center 55%"></div>
     <div style="position:absolute;inset:0;background:linear-gradient(120deg,rgba(18,30,18,.72) 0%,rgba(18,30,18,.38) 55%,rgba(18,30,18,.12) 100%)"></div>
     <div style="position:relative;z-index:2;max-width:1200px;width:100%;margin:0 auto;padding:0 28px">
       <h1 style="font-family:'DM Serif Display',serif;font-size:clamp(36px,5.5vw,62px);font-weight:400;line-height:1.08;color:#fff;margin-bottom:20px;max-width:680px">Precision-Built Homes.<br><em style="color:#C9D7C3">Delivered with Certainty.</em></h1>
@@ -169,6 +184,43 @@ nav[aria-label="Mobile"]{max-height:calc(100dvh - 68px)!important;overscroll-beh
       <div style="margin-top:48px;display:flex;gap:14px;flex-wrap:wrap">
         <span role="button" tabindex="0" onClick="{{ nav.overview }}" style="display:inline-flex;align-items:center;font-size:13px;font-weight:600;padding:14px 28px;background:#4A6741;color:#fff;cursor:pointer" style-hover="background:#1A2A1A">How It Works</span>
         <span role="button" tabindex="0" onClick="{{ nav.about }}" style="display:inline-flex;align-items:center;font-size:13px;font-weight:600;padding:14px 28px;border:1px solid #E2DED6;color:#1A2A1A;cursor:pointer" style-hover="border-color:#4A6741;color:#4A6741">About EcoHome</span>
+      </div>
+    </div>
+  </section>
+
+  <section data-eh-3d="1" style="padding:88px 0;background:#1A2A1A;overflow:hidden">
+    <div style="max-width:1200px;margin:0 auto;padding:0 28px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:40px">
+        <div style="max-width:620px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#A9C09E;display:flex;align-items:center;gap:10px;margin-bottom:14px"><span style="width:24px;height:1px;background:#A9C09E"></span>Explore in 3D</div>
+          <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.15;color:#FAFAF8">Homes you can <em style="color:#A9C09E">walk around.</em></h2>
+          <p style="font-size:15px;color:rgba(250,250,248,.62);line-height:1.8;margin-top:16px">Three of the house types we deliver, modelled in three dimensions. Drag to turn each one, pinch or scroll to zoom. Every one is built on the same precision steel frame and finished to look like any traditionally built home.</p>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,215,195,.7)">Drag to rotate</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:28px;align-items:stretch">
+        <div style="position:relative;background:radial-gradient(ellipse at 50% 70%,#2C3F2A 0%,#1F2F1E 55%,#1A2A1A 100%);border:1px solid rgba(201,215,195,.14);min-height:420px;aspect-ratio:1/1;max-height:560px;display:flex;align-items:center;justify-content:center">
+          <model-viewer src="{{ home3d.src }}" poster="{{ home3d.poster }}" alt="{{ home3d.alt }}" camera-controls auto-rotate auto-rotate-delay="1200" rotation-per-second="18deg" shadow-intensity="1.1" shadow-softness="0.9" exposure="1.05" environment-image="neutral" camera-orbit="35deg 72deg 105%" min-camera-orbit="auto 55deg auto" max-camera-orbit="auto 95deg auto" interaction-prompt="none" loading="lazy" reveal="auto" style="width:100%;height:100%;min-height:420px;background:transparent;--poster-color:transparent"></model-viewer>
+          <div style="position:absolute;left:18px;bottom:16px;display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,215,195,.75);pointer-events:none"><span style="width:7px;height:7px;border-radius:50%;background:#A9C09E;box-shadow:0 0 10px rgba(169,192,158,.7)"></span>{{ home3d.label }}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;justify-content:center">
+          <sc-for list="{{ homes3d }}" as="h" hint-placeholder-count="3">
+            <sc-if value="{{ h.on }}" hint-placeholder-val="{{ false }}">
+              <div role="button" tabindex="0" onClick="{{ h.pick }}" style="padding:22px 24px;background:#FDFDFB;border:1px solid #E3E7DE;cursor:pointer;box-shadow:0 14px 34px rgba(0,0,0,.22)">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:14px"><div style="font-family:'DM Serif Display',serif;font-size:22px;color:#1A2A1A">{{ h.label }}</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#4A6741">{{ h.tag }}</div></div>
+                <div style="font-size:13.5px;color:#5A6050;line-height:1.65;margin-top:8px">{{ h.desc }}</div>
+                <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6E8F62"><span>{{ h.s1 }}</span><span>{{ h.s2 }}</span><span>{{ h.s3 }}</span></div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ h.off }}" hint-placeholder-val="{{ true }}">
+              <div role="button" tabindex="0" onClick="{{ h.pick }}" style="padding:20px 24px;background:rgba(250,250,248,.04);border:1px solid rgba(201,215,195,.16);cursor:pointer" style-hover="border-color:rgba(201,215,195,.45);background:rgba(250,250,248,.07)">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:14px"><div style="font-family:'DM Serif Display',serif;font-size:20px;color:#FAFAF8">{{ h.label }}</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#A9C09E">{{ h.tag }}</div></div>
+                <div style="font-size:13px;color:rgba(250,250,248,.55);line-height:1.6;margin-top:6px">{{ h.desc }}</div>
+              </div>
+            </sc-if>
+          </sc-for>
+          <p style="font-size:11.5px;color:rgba(250,250,248,.4);line-height:1.6;margin-top:6px">Illustrative models of typical EcoHome house types. Finishes, layouts and sizes are agreed per scheme.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -1476,6 +1528,15 @@ nav[aria-label="Mobile"]{max-height:calc(100dvh - 68px)!important;overscroll-beh
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900}}">
+const HOMES3D = [
+  { key:'detached', label:'Detached Family Home', tag:'4 bed', desc:'A four-bedroom detached home in brick and render, with a slate roof and a generous open-plan ground floor.', s1:'approx. 150 m²', s2:'EPC A target', s3:'frame in 4 days',
+    src:'https://d2ol7oe51mr4n9.cloudfront.net/user_3Kjhru6zDTsgYrbghNi9q7md3ym/0f72459d-0084-479e-b171-72427a550703.glb', poster:'https://d8j0ntlcm91z4.cloudfront.net/user_3Kjhru6zDTsgYrbghNi9q7md3ym/hf_20261016_084727_010555a7-6258-4556-a93f-e8df0121ad4c.png', alt:'3D model of a detached two-storey family home' },
+  { key:'terrace', label:'Townhouse Terrace', tag:'3 bed', desc:'Three-storey townhouses in buff brick with zinc-clad top floors, suited to urban infill and larger schemes.', s1:'approx. 125 m²', s2:'EPC A target', s3:'frame in 3 days per unit',
+    src:'https://d2ol7oe51mr4n9.cloudfront.net/user_3Kjhru6zDTsgYrbghNi9q7md3ym/ee197c7b-e8a2-4389-9284-52520c6bcc7c.glb', poster:'https://d8j0ntlcm91z4.cloudfront.net/user_3Kjhru6zDTsgYrbghNi9q7md3ym/hf_20261016_084739_7ce651fb-f9e5-49bb-98d6-b5ba5cc4a362.png', alt:'3D model of a terrace of three townhouses' },
+  { key:'apartments', label:'Apartment Building', tag:'4 storey', desc:'A low-rise apartment block with bronze balconies and a green roof, built on the same steel frame system.', s1:'12 to 24 homes', s2:'EPC A target', s3:'frame in 6 weeks',
+    src:'https://d2ol7oe51mr4n9.cloudfront.net/user_3Kjhru6zDTsgYrbghNi9q7md3ym/9c22ec94-f24f-431f-8e87-cb400ac9ce74.glb', poster:'https://d8j0ntlcm91z4.cloudfront.net/user_3Kjhru6zDTsgYrbghNi9q7md3ym/hf_20261016_084741_03e098f3-3eed-4af0-86e3-be65f45fa655.png', alt:'3D model of a four-storey apartment building' }
+];
+
 const CALL_SLOTS = ['Tue 09:00','Tue 11:30','Wed 10:00','Wed 15:00','Thu 09:30','Thu 14:00'];
 
 const JOURNEY = [
@@ -2062,6 +2123,8 @@ class Component extends DCLogic {
         const pack = !!this.state.packRequest;
         return this.sendForm(e, pack ? 'Website: Investor Pack request' : 'Website: enquiry', () => this.setState({ contactSent: true }), pack ? { 'Request': 'Investor Pack' } : null);
       },
+      home3d: HOMES3D[this.state.home3d || 0],
+      homes3d: HOMES3D.map((h, i) => Object.assign({}, h, { on: (this.state.home3d || 0) === i, off: (this.state.home3d || 0) !== i, pick: () => this.setState({ home3d: i }) })),
       packRequest: !!this.state.packRequest,
       slotList: CALL_SLOTS.map(t => ({ t, on: this.state.slot === t, off: this.state.slot !== t, pick: () => this.setState({ slot: t }) })),
       noSlot: !this.state.slot,
